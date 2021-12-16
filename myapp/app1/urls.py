@@ -20,4 +20,8 @@ from app1 import views
 urlpatterns = [
     path('hello/', views.helloWorld),
     path('getPersons/', views.getAllPerson),
+    path('getAllBooks/', views.getAllBooks),
+    path('createBook/', views.createBook),
+    path('updateBook/', views.updateBook),
+    path('deleteBook/', views.deleteBook),
 ]
