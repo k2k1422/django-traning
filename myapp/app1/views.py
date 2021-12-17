@@ -6,6 +6,7 @@ from app1.serializers import PersonSerializer,BooksSerializer
 from app1.models import Person,Books
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import permission_required
 
 # Create your views here.
 
@@ -24,12 +25,14 @@ def getAllPerson(request):
     return Response(data, status.HTTP_200_OK)
 
 @api_view(["GET"])
+@permission_required("app1.view_books")
 @permission_classes([IsAuthenticated])
 def getAllBooks(request):
     data =  BooksSerializer(Books.objects.all(),many=True).data
     return Response(data, status.HTTP_200_OK)
 
 @api_view(["POST"])
+@permission_required("app1.add_books")
 @permission_classes([IsAuthenticated])
 def createBook(request):
     request_body = request.data
@@ -43,6 +46,7 @@ def createBook(request):
 
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
+@permission_required("app1.edit_books")
 def updateBook(request):
     request_body = request.data
     obj = Books.objects.get(id=request_body["id"])
@@ -58,6 +62,7 @@ def updateBook(request):
 
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
+@permission_required("app1.delete_books")
 def deleteBook(request):
     request_body = request.data
     obj = Books.objects.get(id=request_body["id"])
