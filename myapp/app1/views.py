@@ -45,8 +45,8 @@ def createBook(request):
     return Response(data, status.HTTP_200_OK)
 
 @api_view(["POST"])
+@permission_required("app1.change_books")
 @permission_classes([IsAuthenticated])
-@permission_required("app1.edit_books")
 def updateBook(request):
     request_body = request.data
     obj = Books.objects.get(id=request_body["id"])
