@@ -15,7 +15,7 @@ RUN set -ex \
     && apk add --virtual rundeps $runDeps \
     && apk del .build-deps
 
-ADD . /app
+ADD myapp /app
 WORKDIR /app
 
 ENV VIRTUAL_ENV /env
